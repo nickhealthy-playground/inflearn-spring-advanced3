@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Import;
 
 /**
  * @annotation: 메서드가 주어진 어노테이션을 가지고 있는 조인 포인트를 매칭
+ * - 해당 어노테이션을 가지고 있는 조인포인트에 AOP를 적용한다.
  *
  * `@annotation(hello.aop.member.annotation.MethodAop)`
  *
