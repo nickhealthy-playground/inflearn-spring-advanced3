@@ -1,9 +1,12 @@
 package hello.aop.exam;
 
+import hello.aop.exam.aop.TraceAspect;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 
+@Import(TraceAspect.class)
 @SpringBootTest
 class ExamTest {
 
@@ -12,8 +15,8 @@ class ExamTest {
 
     @Test
     void test() {
-        for (int i = 0; i < 4; i++) {
-            examService.request("data" + i + 1);
+        for (int i = 0; i < 5; i++) {
+            examService.request("data" + (i + 1));
         }
     }
 
