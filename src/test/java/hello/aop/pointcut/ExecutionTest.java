@@ -64,10 +64,10 @@ public class ExecutionTest {
     @DisplayName("메서드 이름 매칭")
     void nameMatch() {
         /*
-        * 반환타입: *
-        * 메서드 이름: hello
-        * 파라미터: 아무거나(0..*)
-        * */
+         * 반환타입: *
+         * 메서드 이름: hello
+         * 파라미터: 아무거나(0..*)
+         * */
         pointcut.setExpression("execution(* hello(..))");
         assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
     }
@@ -107,12 +107,12 @@ public class ExecutionTest {
     /**
      * 패키징 매칭 관련 포인트컷
      * 1. `hello.aop.member.*(1).*(2)`
-     *  - (1): 타입
-     *  - (2): 메서드 이름
-     *
+     * - (1): 타입
+     * - (2): 메서드 이름
+     * <p>
      * 2. 패키지에서 `.` , `..`
-     *  - `.` : 정확하게 해당 위치의 패키지
-     *  - `..` : 해당 위치의 패키지와 그 하위 패키지도 포함
+     * - `.` : 정확하게 해당 위치의 패키지
+     * - `..` : 해당 위치의 패키지와 그 하위 패키지도 포함
      */
     @Test
     @DisplayName("패키지, 메서드 전체 매칭")
@@ -151,6 +151,83 @@ public class ExecutionTest {
     void packageMatchSubPackcage2() {
         // 즉 아래 표현식은 helo.aop 하위 패키지에 있는 클래스와 메서드 전부를 매칭시키는 표현식이다.
         pointcut.setExpression("execution(* hello.aop..*.*(..))");
+        assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+    }
+
+    /**
+     * 타입 매칭 - 부모 타입 허용
+     */
+    @Test
+    @DisplayName("타입이 정확히 일치하는 표현식")
+    void typeExactMatch() {
+        pointcut.setExpression("execution(* hello.aop.member.MemberServiceImpl.*(..))");
+        assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+    }
+
+    @Test
+    @DisplayName("부모 타입이 일치하는 표현식")
+    void typeMatchSuperType() {
+        // execution에서는 부모 타입을 선언해도 그 자식 타입은 매칭된다.
+        // 다형성에서 부모타입 = 자식타입이 할당 가능하다는 점을 떠올리면 된다.
+        pointcut.setExpression("execution(* hello.aop.member.MemberService.*(..))");
+        assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+    }
+
+    @Test
+    @DisplayName("자식(구체) 클래스에서 매칭되는 타입")
+    void typeMatchInternal() throws NoSuchMethodException {
+        pointcut.setExpression("execution(* hello.aop.member.MemberServiceImpl.*(..))");
+        Method internalMethod = MemberServiceImpl.class.getMethod("internal", String.class);
+        assertThat(pointcut.matches(internalMethod, MemberServiceImpl.class)).isTrue();
+    }
+
+    @Test
+    @DisplayName("부모 클래스에서 매칭되지 않는 타입")
+    void typeMatchNoSuperTypeMethodFalse() throws NoSuchMethodException {
+        // 부모타입으로 포인트컷 표현식을 지정함
+        pointcut.setExpression("execution(* hello.aop.member.MemberService.*(..))");
+
+        // 부모타입에는 존재하지 않는 메서드 타입으로 조회 -> 포인트컷의 조인포인트 대상이 아니다.
+        Method internalMethod = MemberServiceImpl.class.getMethod("internal", String.class);
+        assertThat(pointcut.matches(internalMethod, MemberServiceImpl.class)).isFalse();
+    }
+
+    /**
+     * 파라미터 매칭
+     */
+    @Test
+    @DisplayName("특정 타입의 파라미터 허용")
+    void argsMatch() {
+        pointcut.setExpression("execution(* *(String))");
+        assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+    }
+
+    @Test
+    @DisplayName("파라미터가 없을 때")
+    void argsMatchNoArgs() {
+        pointcut.setExpression("execution(* *())");
+        assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isFalse();
+    }
+
+    @Test
+    @DisplayName("정확히 하나의 모든 타입 허용")
+    void argsMatchStar() {
+        pointcut.setExpression("execution(* *(*))");
+        assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+    }
+
+    @Test
+    @DisplayName("파라미터 개수와 무관한, 모든 타입을 허용")
+    void argsMatchAll() {
+        pointcut.setExpression("execution(* *(..))");
+        assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+    }
+
+    @Test
+    @DisplayName("String 타입으로 시작, 파라미터 개수와 무관한, 모든 타입을 허용")
+    void argsMatchComplex() {
+        // .. 은 0..* 이므로 2번째 파라미터가 존재하지 않아도 괜찮다.
+        pointcut.setExpression("execution(* *(String, ..))");
         assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
     }
 }
