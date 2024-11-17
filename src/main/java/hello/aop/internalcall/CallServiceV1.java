@@ -26,7 +26,7 @@ public class CallServiceV1 {
 
     public void external() {
         log.info("call external");
-        internal(); // 내부 메서드 호출(this.internal())
+        callServiceV1.internal(); // 외부 호출(프록시)
     }
 
     public void internal() {
