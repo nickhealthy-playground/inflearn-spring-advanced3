@@ -13,9 +13,11 @@ import org.aspectj.lang.annotation.Aspect;
 public class AspectV1 {
 
     /**
+     * <pre>
      * 어드바이저: 어드바이스 + 포인트컷
      * 어드바이스: doLog 메서드
      * 포인트컷: execution(* hello.aop.order..*(..))
+     * </pre>
      */
     // hello.aop.order 패키지와 그 하위 패키지(..)
     @Around("execution(* hello.aop.order..*(..))")
