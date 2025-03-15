@@ -8,11 +8,12 @@
 
 (정리 예정)
 
-| 섹션 | 바로가기                                                     | 비고                       |
-| ---- | ------------------------------------------------------------ | -------------------------- |
-| 11장 | [chapter11.md](https://github.com/nickhealthy/inflearn-spring-advanced3/blob/main/readme/chapter11.md) | 스프링 AOP 구현            |
-| 12장 | [chapter12.md](https://github.com/nickhealthy/inflearn-spring-advanced3/blob/main/readme/chapter12.md) | 스프링 AOP - 포인트컷      |
-| 13장 | [chapter13.md](https://github.com/nickhealthy/inflearn-spring-advanced3/blob/main/readme/chapter13.md) | 스프링 AOP - 실전 예제     |
+| 섹션  | 바로가기                                                                                                   | 비고               |
+|-----|--------------------------------------------------------------------------------------------------------|------------------|
+| 10장 | [chapter11.md](https://github.com/nickhealthy/inflearn-spring-advanced3/blob/main/readme/chapter10.md) | 스프링 AOP 개념       |
+| 11장 | [chapter11.md](https://github.com/nickhealthy/inflearn-spring-advanced3/blob/main/readme/chapter11.md) | 스프링 AOP 구현       |
+| 12장 | [chapter12.md](https://github.com/nickhealthy/inflearn-spring-advanced3/blob/main/readme/chapter12.md) | 스프링 AOP - 포인트컷   |
+| 13장 | [chapter13.md](https://github.com/nickhealthy/inflearn-spring-advanced3/blob/main/readme/chapter13.md) | 스프링 AOP - 실전 예제  |
 | 14장 | [chapter14.md](https://github.com/nickhealthy/inflearn-spring-advanced3/blob/main/readme/chapter14.md) | 스프링 AOP - 실무 주의사항 |
 
 
