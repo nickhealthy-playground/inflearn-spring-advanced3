@@ -5,6 +5,7 @@ import hello.aop.order.OrderService;
 import hello.aop.order.aop.AspectV1;
 import hello.aop.order.aop.AspectV2;
 import hello.aop.order.aop.AspectV3;
+import hello.aop.order.aop.AspectV4;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.aop.support.AopUtils;
@@ -17,7 +18,8 @@ import static org.assertj.core.api.Assertions.*;
 @Slf4j
 //@Import(AspectV1.class) // 주로 설정 파일을 추가할 때 사용, 해당 애노테이션을 이용해 스프링 빈으로 등록 가능
 //@Import(AspectV2.class)
-@Import(AspectV3.class)
+//@Import(AspectV3.class)
+@Import(AspectV4.class)
 @SpringBootTest
 public class AopTest {
 
