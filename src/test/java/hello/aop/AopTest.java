@@ -17,7 +17,8 @@ import static org.assertj.core.api.Assertions.*;
 //@Import(AspectV2.class)
 //@Import(AspectV3.class)
 //@Import(AspectV4.class)
-@Import(value = {AspectV5Order.LogAspect.class, AspectV5Order.TxAspect.class})
+//@Import(value = {AspectV5Order.LogAspect.class, AspectV5Order.TxAspect.class})
+@Import(AspectV6Advice.class)
 @SpringBootTest
 public class AopTest {
 
