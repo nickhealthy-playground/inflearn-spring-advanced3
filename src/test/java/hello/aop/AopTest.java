@@ -2,7 +2,7 @@ package hello.aop;
 
 import hello.aop.order.OrderRepository;
 import hello.aop.order.OrderService;
-import hello.aop.order.aop.*;
+import hello.aop.order.aop.AspectV6Advice;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.aop.support.AopUtils;
